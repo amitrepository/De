@@ -1,0 +1,131 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute"
+      layout:decorator="layout">
+<head>
+    <title th:inline="text">Team &middot; [[${profile.fullName}]]</title>
+
+    <script th:src="@{/leaflet/leaflet.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/leaflet/leaflet.css}" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" type="text/css" th:href="@{/leaflet/leaflet.ie.css}" />
+    <![endif]-->
+
+  <script type="text/javascript" th:src="@{/js/team.js}" ></script>
+</head>
+<body>
+  <div layout:fragment="header-container"></div>
+  <div layout:fragment="full-width--layout" th:object="${profile}" data:member-id="${profile.id}">
+    <div class="team-map--wrapper">
+      <div class="team-member--container">
+        <div class="container-fluid">
+          <div  class="content--title">Spring Team</div>
+          <div class="row-fluid">
+            <div class="span4">
+              <img th:src="*{avatarUrl} + '?s=250&s=250'" class="team-member--avatar" th:unless="${#strings.isEmpty(profile.avatarUrl)}"/>
+            </div>
+            <div class="span8">
+              <div class="team-member-info--container">
+                <div class="team-member-social pull-right">
+                  <a class="team-member--social--icon twitter-small" th:href="'http://twitter.com/'+ ${profile.twitterUsername}" th:unless="${#strings.isEmpty(profile.twitterUsername)}"></a>
+                  <a class="team-member--social--icon github-small" th:href="'http://github.com/'+ ${profile.githubUsername}" th:unless="${#strings.isEmpty(profile.githubUsername)}"></a>
+                  <a class="team-member--social--icon speakerdeck-small" th:href="'http://speakerdeck.com/'+ ${profile.speakerdeckUsername}" th:unless="${#strings.isEmpty(profile.speakerdeckUsername)}"></a>
+                  <a class="team-member--social--icon lanyrd-small" th:href="'http://lanyrd.com/profile/'+ ${profile.lanyrdUsername}" th:unless="${#strings.isEmpty(profile.lanyrdUsername)}"></a>
+                </div>
+                <h1 class="team-member--name" th:text="*{fullName}">First Last</h1>
+                <div class="team-member--sub-info">
+                  <p th:text="*{jobTitle}" th:unless="${#strings.isEmpty(profile.jobTitle)}">Rock Star</p>
+                  <p th:text="*{location}" th:unless="${#strings.isEmpty(profile.location)}">Location</p>
+                </div>
+                <div class="team-member--bio" th:text="*{bio}">Subttitle Ligula Risus Tristique Pharetra</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="map"></div>
+    </div>
+  </div>
+  <div layout:fragment="content" class="container" th:object="${profile}" data:member-id="${profile.id}">
+    <div class="main-body--wrapper">
+
+      <div class="team-members--wrapper with-padding">
+        <div class="row-fluid">
+          <div class="span4">
+            <div class="member-twitter--wrapper" th:object="${profile}">
+              <div class="member-twitter--header">
+                <div th:if="${#strings.isEmpty(profile.twitterUsername)}" class="twitter-handle">@springcentral</div>
+                <div th:unless="${#strings.isEmpty(profile.twitterUsername)}" class="twitter-handle" th:text="'@'+${profile.twitterUsername}"></div>
+                <a th:if="${#strings.isEmpty(profile.twitterUsername)}" class="twitter-follow-btn" href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fplatform.twitter.com%2Fwidgets%2Ffollow_button.1375828408.html&partner=undefined&region=follow_link&screen_name=springcentral&tw_p=followbutton&variant=2.0">
+                  <i class="icon-twitter"></i>
+                  Follow
+                </a>
+                <a th:unless="${#strings.isEmpty(profile.twitterUsername)}" class="twitter-follow-btn" th:href="'https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fplatform.twitter.com%2Fwidgets%2Ffollow_button.1375828408.html&partner=undefined&region=follow_link&screen_name=' + ${profile.twitterUsername} + '&tw_p=followbutton&variant=2.0'">
+                  <i class="icon-twitter"></i>
+                  Follow
+                </a>
+
+              </div>
+              <div class="member-twitter--body">
+                <div th:if="${#strings.isEmpty(profile.twitterUsername)}">
+                  <a class="twitter-timeline" href="'https://twitter.com/springcentral" data-widget-id="366969513482285056" data-screen-name="springcentral" data-show-replies="false" width="250" data-chrome="nofooter transparent noheader noscrollbar" data-border-color="#ffffff"></a>
+                </div>
+                <div th:unless="${#strings.isEmpty(profile.twitterUsername)}">
+                  <a class="twitter-timeline" href="'https://twitter.com/springcentral" data-widget-id="366969513482285056" th:attr="data-screen-name=${profile.twitterUsername}" data-show-replies="false" width="250" data-chrome="nofooter transparent noheader noscrollbar" data-border-color="#ffffff"></a>
+                </div>
+                <script>
+                  !function(d,s,id){
+                    var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                    if(!d.getElementById(id)){
+                      js=d.createElement(s);
+                      js.id=id;
+                      js.src=p+"://platform.twitter.com/widgets.js";
+                      fjs.parentNode.insertBefore(js,fjs);
+                    }}(document,"script","twitter-wjs");
+                </script>
+              </div>
+            </div>
+          </div>
+          <div id="content" class="span8">
+            <div class="content-container--wrapper blog--container">
+              <div class="content-container--title" th:inline="text">Blog Posts by [[${profile.name}]]</div>
+              <div class='content-items--container posts'>
+                <div class="member-post--container" th:each="post : ${posts}">
+                  <a th:href="@{${post.path}}"><h2 class="member-post--title" th:text="${post.title}">This week in Spring</h2></a>
+                  <div class="meta-data--container">
+                    <div class="meta-data--item">
+                      <div th:class="${'meta-data--icon icon blog-icon '+ #strings.toLowerCase(post.category).replace(' ','-')}"></div>
+                      <a class='category' th:href="@{'/blog/category/'+${post.category.urlSlug}}" th:text="${post.category}">Category</a>
+                    </div>
+                    <div class="meta-data--item">
+                      <div class="meta-data--icon icon blog-icon calendar"></div>
+                      <span class='date' th:text='${#dates.format(post.publishAt, "MMMM d, yyyy")}'>June 18, 2013</span>
+                    </div>
+                  </div>
+                  <div th:utext="${post.renderedSummary}" class='member-post--summary'>This has been an interesting week.</div>
+                  <a class="blog-preview--readmore" th:href="@{${post.path}}" th:if="${post.showReadMore()}">
+                    Read more...
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="content-container--wrapper" th:unless="${#strings.isEmpty(profile.videoEmbeds)}">
+              <div class="content-container--title"th:inline="text">Videos by [[${profile.name}]]</div>
+              <div class="content-items--container">
+                <div class="embedded-video" th:utext="${profile.videoEmbeds}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var teamLocations = /*[[${teamLocations}]]*/ [{id: '123', latitude: 30.0, longitude: 1.5}];
+    $(function() { Spring.CreateMap() });
+    /*]]>*/
+  </script>
+  </div>
+</body>
+</html>
