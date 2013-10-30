@@ -1,6 +1,6 @@
 package integration.guides;
 
-import sagan.util.FixtureLoader;
+import sagan.util.Fixtures;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,12 +16,12 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class GettingStartedGuidesTests extends AbstractIntegrationTests {
+public class GettingStartedGuideIntegrationTests extends AbstractIntegrationTests {
 
     @Test
     public void showGuide() throws Exception {
-        String gsRestServiceRepo = FixtureLoader.load("/fixtures/github/gs-rest-service-repo.json");
-        String gsRestServiceReadme = FixtureLoader.load("/fixtures/github/gs-rest-service-readme.json");
+        String gsRestServiceRepo = Fixtures.load("/fixtures/github/gs-rest-service-repo.json");
+        String gsRestServiceReadme = Fixtures.load("/fixtures/github/gs-rest-service-readme.json");
         stubRestClient.putResponse("/repos/spring-guides/gs-rest-service", gsRestServiceRepo);
 
         stubRestClient.putResponse("/repos/spring-guides/gs-rest-service/readme", gsRestServiceReadme);

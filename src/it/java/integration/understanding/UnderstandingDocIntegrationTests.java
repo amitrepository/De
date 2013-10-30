@@ -1,6 +1,6 @@
 package integration.understanding;
 
-import sagan.util.FixtureLoader;
+import sagan.util.Fixtures;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,14 +15,14 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class UnderstandingGuidesTests extends AbstractIntegrationTests {
+public class UnderstandingDocIntegrationTests extends AbstractIntegrationTests {
 
     @Test
     public void getExistingGuide() throws Exception {
-        String readmeHtml = FixtureLoader.load("/fixtures/understanding/amqp/README.html");
+        String readmeHtml = Fixtures.load("/fixtures/understanding/amqp/README.html");
         stubRestClient.putResponse("/repos/spring-guides/understanding/contents/amqp/README.md", readmeHtml);
 
-        String sidebarHtml = FixtureLoader.load("/fixtures/understanding/amqp/SIDEBAR.html");
+        String sidebarHtml = Fixtures.load("/fixtures/understanding/amqp/SIDEBAR.html");
         stubRestClient.putResponse("/repos/spring-guides/understanding/contents/amqp/SIDEBAR.md", sidebarHtml);
 
         MvcResult response = this.mockMvc.perform(get("/understanding/AMqp"))

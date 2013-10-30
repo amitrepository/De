@@ -1,6 +1,6 @@
 package integration.guides;
 
-import sagan.util.FixtureLoader;
+import sagan.util.Fixtures;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,12 +17,11 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class GuidesTests extends AbstractIntegrationTests {
+public class GuideIndexIntegrationTests extends AbstractIntegrationTests {
 
     @Test
     public void showGuidesIndex() throws Exception {
-        String repoList = FixtureLoader.load("/fixtures/github/githubRepoList.json");
-        stubRestClient.putResponse("/orgs/spring-guides/repos", repoList);
+        stubRestClient.putResponse("/orgs/spring-guides/repos", Fixtures.githubRepoListJson());
 
         MvcResult response = this.mockMvc.perform(get("/guides"))
                 .andExpect(status().isOk())
