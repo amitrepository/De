@@ -1,4 +1,4 @@
-package sagan.search.web;
+package sagan.search.support;
 
 import java.util.ArrayList;
 import java.util.List;

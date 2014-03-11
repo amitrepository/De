@@ -1,9 +1,4 @@
-package sagan.search.web;
-
-import sagan.search.SearchFacet;
-import sagan.search.SearchResult;
-import sagan.search.SearchResults;
-import sagan.search.service.SearchService;
+package sagan.search.support;
 
 import java.util.ArrayList;
 import java.util.Collections;

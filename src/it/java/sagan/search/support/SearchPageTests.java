@@ -1,8 +1,8 @@
-package integration.search;
+package sagan.search.support;
 
 import sagan.search.SearchEntry;
-import sagan.search.SearchEntryBuilder;
-import sagan.search.service.SearchService;
+import sagan.search.support.SearchEntryBuilder;
+import sagan.search.support.SearchService;
 
 import java.util.Calendar;
 

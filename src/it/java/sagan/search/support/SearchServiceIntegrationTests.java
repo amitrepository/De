@@ -1,10 +1,6 @@
-package integration.search;
+package sagan.search.support;
 
 import sagan.search.SearchEntry;
-import sagan.search.SearchEntryBuilder;
-import sagan.search.SearchIndexSetup;
-import sagan.search.SearchResult;
-import sagan.search.service.SearchService;
 
 import java.text.ParseException;
 import java.util.Arrays;

@@ -1,10 +1,5 @@
-package sagan.search.web;
+package sagan.search.support;
 
-import sagan.search.SearchFacet;
-import sagan.search.SearchResult;
-import sagan.search.SearchResults;
-import sagan.search.SpringFacetsBuilder;
-import sagan.search.service.SearchService;
 import sagan.support.web.PageableFactory;
 import sagan.support.web.PaginationInfo;
 

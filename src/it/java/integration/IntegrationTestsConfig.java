@@ -1,4 +1,4 @@
-package integration.configuration;
+package integration;
 
 import sagan.SiteConfig;
 
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.mock;
 @Configuration
 @Import(SiteConfig.class)
 @ComponentScan("integration.stubs")
-public class IntegrationTestsConfig {
+class IntegrationTestsConfig {
 
     @Primary
     @Bean
