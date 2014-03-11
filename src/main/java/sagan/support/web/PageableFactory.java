@@ -1,4 +1,4 @@
-package sagan.util.web;
+package sagan.support.web;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -1,4 +1,4 @@
-package sagan.util.web;
+package sagan.support.web;
 
 import javax.servlet.http.HttpServletRequest;
 

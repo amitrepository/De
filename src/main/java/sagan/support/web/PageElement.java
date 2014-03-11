@@ -1,4 +1,4 @@
-package sagan.util.web;
+package sagan.support.web;
 
 public class PageElement {
     private final String pageText;
